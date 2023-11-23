@@ -1,6 +1,7 @@
 import { FiTrash } from "react-icons/fi"
 import { api } from "./services/api"
 import { useEffect, useRef, useState, FormEvent } from "react"
+import convertDate from "./utils/convertDate"
 
 
 interface customersProps {
@@ -16,6 +17,7 @@ export default function App() {
   const [customers, setCustomers] = useState<customersProps[]>([])
   const nameRef = useRef<HTMLInputElement | null>(null)
   const emailRef = useRef<HTMLInputElement | null>(null)
+ 
 
   useEffect(() => {
     loadCustomers()
@@ -89,6 +91,7 @@ export default function App() {
               className="w-full rounded bg-white p-2 relative hover:scale-105 duration-200">
               <p><span>Nome:</span> {customer.name}</p>
               <p><span>Email:</span> {customer.email}</p>
+              <p><span>Criado em:</span> {convertDate(customer.created_at)}</p>
               <p><span>Status:</span> {customer.status ? "ATIVO" : "INATIVO"}</p>
               <button
                 onClick={() => delCustomer(customer.id)}
